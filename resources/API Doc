@@ -1,0 +1,38 @@
+SpotHero API Document
+
+Rate Endpoint:
+@Path /SpotHero/rate
+@Params
+@Required
+@ParamName=start (ISO Date Format YYYY-MM-DDTHH:MM:SSZ)
+@ParamName=end (ISO Date Format YYYY-MM-DDTHH:MM:SSZ)
+@ParamName=rateschedule (JSON Formated {rates:[{days:<mon,tues,wed,thurs,fri,sat,sun>,times<HH:MM-HH:MM(military),price<ex 2500>}]}
+@ReturnType=JSON,XML
+@Returns={rate:<ex 2500 | Unavailable>}
+@ReturnsError={errorMessage:<message>}
+@Example
+
+	Request: 
+	http://localhost:8080/SpotHero/rate?start=2015-07-04T09:00:00&end=2015-07-04T12:00:00Z&rateschedule=%7B%22rates%22%3A%5B%7B%22days%22%3A%22mon%2Ctues%2Cwed%22%2C%22times%22%3A%220900-2100%22%2C%22price%22%3A1500%7D%2C%7B%22days%22%3A%22thurs%2Cfri%2Cwed%22%2C%22times%22%3A%220900-2100%22%2C%22price%22%3A2000%7D%2C%7B%22days%22%3A%22sat%2Csun%22%2C%22times%22%3A%220600-1600%22%2C%22price%22%3A2500%7D%5D%7D%0D%0A
+
+	Result JSON:
+	{
+	"rate": "2500"
+	}
+
+Metrics Endpoint:
+@Path /SpotHero/metrics
+@Params
+@None
+@ReturnType=JSON,XML
+@Returns {numFailedRequests:<int>,numRequests:<int>,avgResponseTime<double (last 1000 requests averaged together)>}
+@Example
+	Request: 
+	http://localhost:8080/SpotHero/metrics
+	
+	Result JSON: 
+	{
+	"numFailedRequests": 0,
+	"numRequests": 0,
+	"avgResponseTime": "NaN"
+	} 
